@@ -15,7 +15,7 @@ Based on https://inteltechniques.com/ventura.html
 - Privacy & Security > Apple Advertising > Personalized Ads = Disabled
 - Game Center > Game Center = Disabled
 
-## Keyboard Shortcuts     
+## Keyboard Shortcuts
 
 - Spotlight
     - Show Spotlight search = Ctrl-Opt-Space
@@ -35,13 +35,16 @@ Based on https://inteltechniques.com/ventura.html
     - browser.cache.disk.enable = false
     - browser.cache.memory.capacity = 65536
     - dom.ipc.processCount = 4
-    - dom.ipc.processCount.webIsolated = 4
+    - dom.ipc.processCount.inference = 0
+    - dom.ipc.processCount.privilegedabout = 0
+    - dom.ipc.processCount.webIsolated = 2
     - dom.ipc.processPrelaunch.enabled = false
     - extensions.pocket.enabled = false
-    - gfx.webrender.all = true
+    - gfx.webrender.compositor.max_update_rects=16
+    - media.av1.enabled = false
+    - network.predictor.enabled = false
 - Extensions
     - Firefox Multi-Account Container
     - uBlock Origin
 - Themes
     - Colorful Abstract Neon
-

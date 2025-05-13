@@ -12,9 +12,3 @@ macos-config-system:
 
 macos-config-user:
     ./os/macos/setup.sh config-user
-
-macos-install-dev-ext:
-    ./os/macos/setup.sh install-dev-ext
-
-macos-install-dev-llm:
-    ./os/macos/setup.sh install-dev-llm

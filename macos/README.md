@@ -33,16 +33,14 @@ Based on https://inteltechniques.com/ventura.html
     - browser.discovery.enabled = false
     - browser.newtabpage.enabled = false
     - browser.cache.disk.enable = false
-    - browser.cache.memory.capacity = 65536
-    - dom.ipc.processCount = 4
-    - dom.ipc.processCount.inference = 0
-    - dom.ipc.processCount.privilegedabout = 0
-    - dom.ipc.processCount.webIsolated = 2
+    - browser.cache.memory.capacity = 32768
+    - dom.ipc.keepProcessesAlive.privilegedabout = 0
+    - dom.ipc.processCount = 16
+    - dom.ipc.processCount.webIsolated = 1
     - dom.ipc.processPrelaunch.enabled = false
     - extensions.pocket.enabled = false
     - gfx.webrender.compositor.max_update_rects=16
     - media.av1.enabled = false
-    - network.predictor.enabled = false
 - Extensions
     - Firefox Multi-Account Container
     - uBlock Origin

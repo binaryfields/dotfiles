@@ -1,14 +1,14 @@
 linux-dot:
-    cp -r * ~/.config/
-    cp -r app ~/.var/
-    cp -r xdg/fedora/applications ~/.local/share/
-    cp .profile ~/.profile
+    cp -r config/* ~/.config/
+    cp -r fedora/config/* ~/.config/
+    cp -r fedora/xdg/applications ~/.local/share/
+    cp fedora/config/.profile ~/.profile
 
 macos-dot:
-    cp -r alacritty fish lf ~/.config/
+    cp -r config/* ~/.config/
 
 macos-config-system:
-    ./os/macos/setup.sh config-system
+    ./macos/setup.sh config-system
 
 macos-config-user:
-    ./os/macos/setup.sh config-user
+    ./macos/setup.sh config-user

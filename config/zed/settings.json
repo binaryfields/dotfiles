@@ -1,0 +1,94 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+    // Theme
+    "theme": "Base16 Zenburn Mod",
+    "buffer_font_family": "Monaco", // Zed Plex Mono", // "CommitMono Nerd Font",
+    "buffer_font_size": 13,
+    "buffer_line_height": "standard",
+    "xui_font_family": "Monaco",
+    "ui_font_size": 14,
+    "agent_font_size": 14,
+    // UI
+    "cursor_blink": false,
+    "scrollbar": {
+        "show": "auto"
+    },
+    // Editing
+    "preferred_line_length": 90,
+    "soft_wrap": "preferred_line_length",
+    "tab_size": 4,
+    // Terminal
+    "terminal": {
+        "alternate_scroll": "off",
+        "blinking": "terminal_controlled",
+        "copy_on_select": true,
+        "font_family": "CommitMono Nerd Font",
+        "line_height": "standard",
+        "toolbar": {
+            "title": true
+        },
+        "working_directory": "current_project_directory",
+        "button": false
+    },
+    // AI
+    "language_models": {
+        "openai": {
+            "version": "1",
+            "api_url": "http://127.0.0.1:8080/v1",
+            "api_key": "dummy",
+            "available_models": [
+                {
+                    "name": "gemma3",
+                    "display_name": "gemma3",
+                    "max_tokens": 32768
+                },
+                {
+                    "name": "gemma3-q6",
+                    "display_name": "gemma3-q6",
+                    "max_tokens": 32768
+                },
+                {
+                    "name": "mistral3",
+                    "display_name": "mistral3",
+                    "max_tokens": 32768
+                },
+                {
+                    "name": "mistral3-q6",
+                    "display_name": "mistral3-q6",
+                    "max_tokens": 32768
+                },
+                {
+                    "name": "qwen3",
+                    "display_name": "qwen3",
+                    "max_tokens": 32768
+                }
+            ]
+        }
+    },
+    "agent": {
+        "inline_assistant_model": {
+            "provider": "anthropic",
+            "model": "claude-3-7-sonnet-latest"
+        },
+        "enabled": true,
+        "default_model": {
+            "provider": "openai",
+            "model": "gemma3"
+        },
+        "version": "2",
+        "button": true,
+        "default_width": 480,
+        "dock": "right"
+    },
+    "features": {
+        "edit_prediction_provider": "none",
+        "copilot": false
+    }
+}

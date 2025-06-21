@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
+BUILD_DIR="/tmp/build"
+PREFIX="/usr/local"
+MODEL_HOME="/Users/Shared/models"
+
 apps=(
     # internet
     firefox
     google-chrome
-    nheko
-    zoom
     # media
-    spotify
-    calibre
-    handbrake
     iina
+    spotify
+    handbrake
     # productivity
     obsidian
-    chatgpt
-    lm-studio
     # utils
     alacritty
     keepassxc
@@ -24,8 +23,10 @@ apps=(
     # dev
     zed
     android-studio
-    intellij-idea-ce
-    #clion
+    # devops
+    tableplus
+    # work
+    zoom
 )
 
 appstore=(
@@ -35,6 +36,12 @@ appstore=(
     1441195209
     # Xcode
     497799835
+)
+
+assetts=(
+    font-fira-code
+    font-fira-code-nerd-font
+    font-commit-mono-nerd-font
 )
 
 utils=(
@@ -52,14 +59,15 @@ utils=(
     xh
     # sys
     bat
+    btop
+    eza
     fd
+    gdu
     ripgrep
     sd
     tealdeer
+    zoxide
     zstd
-    # sysinfo
-    btop
-    gdu
 )
 
 dev=(
@@ -69,15 +77,18 @@ dev=(
     openjdk
     python
     rust
+    temurin@11
     # build
     cmake
     coursier
     make
+    metals
     pnpm
     pipx
     sbt
     uv
-    # llm
+    # ai
+    aider
     huggingface-cli
     llama.cpp
     # ops
@@ -85,11 +96,10 @@ dev=(
     fabric
     helm
 	k9s
-	kubectl
+	kubernetes-cli
 	opentofu
     podman
     podman-compose
-    qemu
     # servers
     nats-server
     postgresql@17
@@ -104,12 +114,51 @@ dev=(
     zerotier-one
 )
 
-pipx=(
-	aider-chat
-	mlx-lm
+dev_bin=(
+    "llama-swap https://github.com/mostlygeek/llama-swap/releases/download/v130/llama-swap_130_darwin_arm64.tar.gz"
 )
 
-# pipx install aider-chat --python /opt/homebrew/bin/python3.12
+dev_cs=(
+    bloop
+)
+
+dev_pipx=(
+    docling
+)
+
+llm_base=(
+    "google/gemma-3-27b-it-qat-q4_0-gguf:q4_0"
+    "unsloth/Devstral-Small-2505-GGUF:UD-Q4_K_XL"
+    "unsloth/Mistral-Small-3.1-24B-Instruct-2503-GGUF:UD-Q4_K_XL"
+    "unsloth/Qwen3-32B-GGUF:UD-Q4_K_XL"
+)
+
+llm_testing=(
+    "unsloth/Magistral-Small-2506-GGUF:UD-Q4_K_XL"
+    "unsloth/Mistral-Small-3.1-24B-Instruct-2503-GGUF:Q6_K"
+    "unsloth/gemma-3-27b-it-GGUF:Q6_K"
+)
+
+install_binary() {
+    local pkgname="$1"
+    local pkgver=1
+    local pkgurl="$2"
+    local pkgdir="$PREFIX"
+
+    cd "$BUILD_DIR"
+    rm -rf "$pkgname-$pkgver" || true
+    mkdir -p "$pkgname-$pkgver"
+
+    wget -O "$pkgname.tar.gz" "$pkgurl"
+    tar xavf "$pkgname.tar.gz" -C "$pkgname-$pkgver"
+
+    pushd .
+    cd "$pkgname-$pkgver"
+    install -Dm 755 "$pkgname" -t "$pkgdir/bin"
+    popd
+
+    rm -rf "$pkgname-$pkgver" || true
+}
 
 config_reset() {
     defaults write com.apple.dock persistent-apps -array
@@ -171,10 +220,38 @@ show_status() {
 
 main() {
 	case "$1" in
-		install-apps) brew install --cask "${apps[@]}" ;;
-        install-appstore) mas install "${appstore[@]}" ;;
-		install-dev) brew install "${dev[@]}" ;;
-		install-utils) brew install "${utils[@]}" ;;
+		install-apps)
+		    brew install --cask "${apps[@]}"
+			;;
+        install-appstore)
+            mas install "${appstore[@]}"
+            ;;
+        install-assetts)
+            brew install "${assetts[@]}"
+            ;;
+		install-dev)
+		    brew install "${dev[@]}"
+		    for item in "${dev_bin[@]}"; do
+                IFS=' ' read -r bin_name bin_url <<< "$item"
+                install_binary "$bin_name" "$bin_url"
+            done
+			coursier install "${dev_cs[@]}" --only-prebuilt=true
+			pipx install "${dev_pipx[@]}"
+			;;
+		install-llm)
+            for model in "${llm_base[@]}"; do
+                IFS=':' read -r repo quant <<< "$model"
+                huggingface-cli download $repo --local-dir $MODEL_HOME --include "*$quant.gguf"
+            done
+
+            for model in "${llm_testing[@]}"; do
+                IFS=':' read -r repo quant <<< "$model"
+                huggingface-cli download $repo --local-dir $MODEL_HOME --include "*$quant.gguf"
+            done
+            ;;
+		install-utils)
+		    brew install "${utils[@]}"
+			;;
 		config-reset) config_reset ;;
         config-system) config_system ;;
 		config-user) config_user ;;

@@ -1,0 +1,53 @@
+startPort: 10001
+macros:
+    "llama": >
+        llama-server --port ${PORT}
+        --jinja
+        --flash-attn -ngl 99
+
+    "context_l": |
+        --ctx-size 16384
+        --cache-type-k q8_0
+        --cache-type-v q8_0
+
+    "context_xl": |
+        --ctx-size 32768
+        --cache-type-k q8_0
+        --cache-type-v q8_0
+
+models:
+    "gemma3":
+        cmd: |
+            ${llama} ${context_l}
+            --model /Users/Shared/models/gemma-3-27b-it-q4_0.gguf
+            --temp 1.0 --top-k 64 --top-p 0.95 --min-p 0.01
+        ttl: 900
+
+    "gemma3-q6":
+        cmd: |
+            ${llama} ${context_l}
+            --model /Users/Shared/models/gemma-3-27b-it-Q6_K.gguf
+            --temp 1.0 --top-k 64 --top-p 0.95 --min-p 0.01
+        ttl: 900
+
+    "mistral3":
+        cmd: |
+            ${llama} ${context_l}
+            --model /Users/Shared/models/Mistral-Small-3.1-24B-Instruct-2503-UD-Q4_K_XL.gguf
+            --temp 0.15
+        ttl: 900
+
+    "mistral3-q6":
+        cmd: |
+            ${llama} ${context_l}
+            --model /Users/Shared/models/Mistral-Small-3.1-24B-Instruct-2503-Q6_K.gguf
+            --temp 0.15
+        ttl: 900
+
+    "qwen3":
+        cmd: |
+            ${llama} ${context_l}
+            --model /Users/Shared/models/Qwen3-32B-UD-Q4_K_XL.gguf
+            --temp 0.6 --top-k 20 --top-p 0.95 --min-p 0.05
+            --reasoning-format deepseek
+        ttl: 900

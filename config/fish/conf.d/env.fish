@@ -1,3 +1,4 @@
+# General
 set -gx TERM xterm-256color
 
 # Dev

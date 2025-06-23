@@ -15,15 +15,66 @@
     "xui_font_family": "Monaco",
     "ui_font_size": 14,
     "agent_font_size": 14,
+
     // UI
     "cursor_blink": false,
-    "scrollbar": {
-        "show": "auto"
+    "cursor_shape": "bar",
+    "gutter": {
+        "line_numbers": true,
+        "code_actions": false,
+        "runnables": false,
+        "breakpoints": false,
+        "folds": false,
+        "min_line_number_digits": 0
     },
+    "indent_guides": {
+        "coloring": "indent_aware"
+    },
+    "project_panel": {
+        "indent_size": 16,
+        "hide_root": true
+    },
+    "tab_bar": {
+        "show_nav_history_buttons": false,
+        "show_tab_bar_buttons": false
+    },
+    "tabs": {
+        "git_status": true,
+        "show_diagnostics": "errors"
+    },
+    "scrollbar": {
+        "show": "auto",
+        "cursors": true,
+        "git_diff": true,
+        "search_results": true,
+        "selected_symbol": true,
+        "diagnostics": "all",
+        "axes": {
+            "horizontal": true,
+            "vertical": true
+        }
+    },
+
     // Editing
+    "inlay_hints": {
+        "enabled": true
+    },
     "preferred_line_length": 90,
     "soft_wrap": "preferred_line_length",
     "tab_size": 4,
+    "format_on_save": "on",
+    "remove_trailing_whitespace_on_save": true,
+
+    // Telemetry
+    "features": {
+        "edit_prediction_provider": "none",
+        "copilot": false
+    },
+    "telemetry": {
+        "diagnostics": true,
+        "metrics": false
+    },
+
     // Terminal
     "terminal": {
         "alternate_scroll": "off",
@@ -37,7 +88,20 @@
         "working_directory": "current_project_directory",
         "button": false
     },
+
     // AI
+    "agent": {
+        "default_model": {
+            "provider": "openai",
+            "model": "gemma3"
+        },
+        "version": "2",
+        "inline_assistant_model": {
+            "provider": "anthropic",
+            "model": "claude-3-7-sonnet-latest"
+        },
+        "default_width": 480
+    },
     "language_models": {
         "openai": {
             "version": "1",
@@ -71,24 +135,5 @@
                 }
             ]
         }
-    },
-    "agent": {
-        "inline_assistant_model": {
-            "provider": "anthropic",
-            "model": "claude-3-7-sonnet-latest"
-        },
-        "enabled": true,
-        "default_model": {
-            "provider": "openai",
-            "model": "gemma3"
-        },
-        "version": "2",
-        "button": true,
-        "default_width": 480,
-        "dock": "right"
-    },
-    "features": {
-        "edit_prediction_provider": "none",
-        "copilot": false
     }
 }

@@ -1,120 +1,420 @@
+# ===========================
+# GENERAL SETTINGS
+# ===========================
+
 set incsearch true
+set ignorecase true
+set smartcase true
+set wrapscan true
+set tabstop 4
+set scrolloff 5
+set period 1
+set hiddenfiles ".*:__pycache__:*.pyc:node_modules:.DS_Store"
+set drawbox false
+set icons false
+set info size:time
+set dircounts true
+set dirfirst true
+set mouse true
+
+# Display settings
 set infotimefmtnew "2006-01-02 15:04"
 set infotimefmtold "2006-01-02 15:04"
 set timefmt "2006-01-02 15:04"
+
+# Preview settings
 set previewer ~/.config/lf/pv.sh
+set preview true
+set sixel true
 
-cmd doc $$lf -doc | $PAGER
+# ===========================
+# CORE NAVIGATION
+# ===========================
 
-# bindings
-
-## 1/basic
-map q quit
-map w $$SHELL
-map e $$EDITOR "$f"
-map r $LESSOPEN='| ~/.config/lf/pv.sh %s' less -R "$f"
-map <enter> open
-map <c-r> reload
-
-map x cut
-map c copy
-map v paste
-map C clear
-map <delete> delete
-
-#map $ shell
-#map % shell-pipe
-#map ! shell-wait
-#map & shell-async
-
-map <f-1> doc
-map <f-2> rename
-#map <f-3> $LESSOPEN='| ~/.config/lf/pv.sh %s' less -R "$f"
-map <f-4> $$EDITOR "$f"
-map <f-5> copy
-map <f-6> cut
-map <f-7> mkdir
-map <f-8> delete
-map <f-10> quit
-
-## 1/selection
-map <space> :toggle; down
-map a glob-select * 
-map A unselect
-map I invert
-
-## 1/navigation
-map <up> up    
+# Arrow keys
+map <up> up
 map <down> down
 map <left> updir
 map <right> open
-map <home> top
-map <end> bottom
+
+# Page navigation
 map <pgup> page-up
 map <pgdn> page-down
-map <c-u> half-up
-map <c-d> half-down                
+map <home> top
+map <end> bottom
+
+# Scrolling
 map <c-y> scroll-up
-map <c-e> scroll-down    
+map <c-e> scroll-down
 
-# 2/bookmarks
-map b mark-load 
-map B mark-save
-map <c-b> mark-remove
+# ===========================
+# FILE OPERATIONS
+# ===========================
 
-# 2/search
-map f find
-map F find-back 
-map <f-3> find-next
-map <F-3> find-prev
+# Basic operations
+map <enter> open
+map o open
+map O $mimeopen --ask "$f"
 
+# File manipulation
+map x cut
+map c copy
+map v paste
+map V paste-rsync
+map <delete> delete
+
+# New file/directory
+map md mkdir
+map mf mkfile
+map mt touch
+
+# Rename/move
+map r rename
+map R bulkrename
+
+# ===========================
+# SELECTION
+# ===========================
+
+map <space> :toggle; down
+#map v :toggle; down
+#map V invert
+map u unselect
+map U clear
+
+# Select all/patterns
+map a glob-select *
+map A :unselect '*'
+map <c-a> :select '*'
+
+# ===========================
+# SEARCH & FIND
+# ===========================
+
+# Search in filenames
 map / search
 map ? search-back
 map n search-next
 map N search-prev
+map <esc> :clear
 
-## 2/settings
+# Find files
+map f find
+map F find-back
+map ; find-next
+map , find-prev
+
+# Filter
+map zf filter
+
+# ===========================
+# BOOKMARKS
+# ===========================
+
+map "'" read-shell-async
+map '"' read-shell-async
+
+# Mark operations
+map b mark-save
+map B mark-load
+map <c-b> mark-remove
+
+# Quick bookmarks
+map gh cd ~
+map gd cd ~/Downloads
+map gD cd ~/Documents
+map gw cd ~/dev/consulting
+map gs cd /Volumes/share
+
+# ===========================
+# VIEW SETTINGS
+# ===========================
+
+# Toggle hidden files
+map . set hidden!
 map zh set hidden!
-map zr set reverse!
-map zn set info
-map zs set info sizehelp
+
+# Info display
+map zi set info
+map zs set info size
 map zt set info time
 map za set info size:time
+map zd set dircounts!
+
+# Sorting
 map sn :set sortby natural; set info
 map ss :set sortby size; set info size
 map st :set sortby time; set info time
 map sa :set sortby atime; set info atime
 map sc :set sortby ctime; set info ctime
 map se :set sortby ext; set info
+map sz :set sortby size; set reverse!; set info size
+map sr set reverse!
 
-map . set hidden!
-map d set info size:time
-map D set info
+# Layout
+map zp set preview!
+map zP set preview!; reload
+map zi set icons!
+map zb set drawbox!
 
-# 2/shortcuts
-map gh cd ~
-map gdo cd ~/Documents
-map gdl cd ~/Downloads
-map gdv cd ~/dev
+# ===========================
+# SYSTEM OPERATIONS
+# ===========================
 
-# commands
+# Shell and editor
+map w $$SHELL
+map e $$EDITOR "$f"
+map E $sudo $EDITOR "$f"
+map i $less "$f"
+map I $LESSOPEN='| ~/.config/lf/pv.sh %s' less -R "$f"
 
-cmd ex ${{
+# System operations
+map Y $printf '%s' "$fx" | pbcopy
+map <c-r> reload
+map <c-l> redraw
+map q quit
+map Q quit-all
+
+# Help
+map ? doc
+
+# ===========================
+# FUNCTION KEYS
+# ===========================
+
+map <f-1> doc
+map <f-2> rename
+map <f-3> $less "$f"
+map <f-4> $$EDITOR "$f"
+map <f-5> copy
+map <f-6> cut
+map <f-7> mkdir
+map <f-8> delete
+map <f-9> compress
+map <f-10> quit
+
+# ===========================
+# CUSTOM COMMANDS
+# ===========================
+
+# Documentation
+cmd doc $$lf -doc | $PAGER
+
+# Create directory with prompt
+cmd mkdir ${{
+    printf "Directory name: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        mkdir -p "$ans"
+        lf -remote "send $id select \"$ans\""
+    fi
+}}
+
+# Create file with prompt
+cmd mkfile ${{
+    printf "File name: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        touch "$ans"
+        lf -remote "send $id select \"$ans\""
+    fi
+}}
+
+# Touch file (create empty file)
+cmd touch ${{
+    printf "File name: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        touch "$ans"
+        lf -remote "send $id select \"$ans\""
+    fi
+}}
+
+# Extract archives
+cmd extract ${{
     set -f
-    case $f in
-        *.tar.*) tar xvf $f;;
-        *.zip) unzip $f;;
+    case "$f" in
+        *.tar.bz2|*.tbz2) tar xjf "$f";;
+        *.tar.gz|*.tgz) tar xzf "$f";;
+        *.tar.xz|*.txz) tar xJf "$f";;
+        *.tar) tar xf "$f";;
+        *.zip) unzip "$f";;
+        *.rar) unrar x "$f";;
+        *.7z) 7z x "$f";;
+        *.gz) gunzip "$f";;
+        *.bz2) bunzip2 "$f";;
+        *.xz) unxz "$f";;
+        *) echo "Unsupported format";;
     esac
 }}
 
-cmd mkdir ${{
-  printf "Directory Name: "
-  read ans
-  mkdir $ans
+# Compress selection
+cmd compress ${{
+    printf "Archive name (without extension): "
+    read -r ans
+    if [ -n "$ans" ]; then
+        case "$ans" in
+            *.tar.gz|*.tgz) tar czf "$ans" $fx;;
+            *.tar.bz2|*.tbz2) tar cjf "$ans" $fx;;
+            *.tar.xz|*.txz) tar cJf "$ans" $fx;;
+            *.zip) zip -r "$ans" $fx;;
+            *) tar czf "$ans.tar.gz" $fx;;
+        esac
+    fi
 }}
 
-cmd mkfile ${{
-  printf "File Name: "
-  read ans
-  $EDITOR $ans
+# Trash (if available)
+cmd trash ${{
+    if command -v trash >/dev/null 2>&1; then
+        trash $fx
+    elif command -v gio >/dev/null 2>&1; then
+        gio trash $fx
+    else
+        echo "No trash command available"
+    fi
+}}
+
+# Paste with rsync (for progress)
+cmd paste-rsync ${{
+    set -f
+    mode=$(cat ~/.local/share/lf/files | head -1)
+    list=$(cat ~/.local/share/lf/files | tail +2)
+    if [ "$mode" = "copy" ]; then
+        rsync -av --progress $list . | while read line; do
+            echo "$line"
+        done
+    elif [ "$mode" = "move" ]; then
+        rsync -av --progress $list . | while read line; do
+            echo "$line"
+        done
+        rm -rf $list
+    fi
+    lf -remote "send $id clear"
+}}
+
+# Bulk rename
+cmd bulkrename ${{
+    if [ -n "$fs" ]; then
+        echo "$fs" > /tmp/lf-bulkrename
+        $EDITOR /tmp/lf-bulkrename
+        if [ -f /tmp/lf-bulkrename ]; then
+            paste -d '\n' <(echo "$fs") /tmp/lf-bulkrename | while IFS=$'\t' read -r old new; do
+                if [ "$old" != "$new" ] && [ -n "$new" ]; then
+                    mv "$old" "$new"
+                fi
+            done
+            rm /tmp/lf-bulkrename
+        fi
+    fi
+}}
+
+# Change permissions
+cmd chmod ${{
+    printf "Mode bits: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        chmod "$ans" $fx
+    fi
+}}
+
+# Filter files
+cmd filter ${{
+    printf "Filter pattern: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        lf -remote "send $id setfilter '$ans'"
+    else
+        lf -remote "send $id setfilter"
+    fi
+}}
+
+# Select files matching pattern
+cmd select ${{
+    printf "Select pattern: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        lf -remote "send $id glob-select '$ans'"
+    fi
+}}
+
+# Unselect files matching pattern
+cmd unselect ${{
+    printf "Unselect pattern: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        lf -remote "send $id glob-unselect '$ans'"
+    fi
+}}
+
+# Open with specific application
+cmd open-with ${{
+    printf "Open with: "
+    read -r ans
+    if [ -n "$ans" ]; then
+        $ans "$f"
+    fi
+}}
+
+# Git operations (if in git repo)
+cmd git-status ${{
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        git status
+        read -p "Press any key to continue..."
+    else
+        echo "Not in a git repository"
+        read -p "Press any key to continue..."
+    fi
+}}
+
+# ===========================
+# FILE TYPE ASSOCIATIONS
+# ===========================
+
+# Define opener for different file types
+cmd open ${{
+    case $(file --mime-type "$f" -bL) in
+        text/*|application/json) $EDITOR "$f";;
+        image/*)
+            if command -v feh >/dev/null 2>&1; then
+                feh "$f"
+            elif command -v open >/dev/null 2>&1; then
+                open "$f"
+            fi
+            ;;
+        video/*|audio/*)
+            if command -v mpv >/dev/null 2>&1; then
+                mpv "$f"
+            elif command -v open >/dev/null 2>&1; then
+                open "$f"
+            fi
+            ;;
+        application/pdf)
+            if command -v zathura >/dev/null 2>&1; then
+                zathura "$f"
+            elif command -v open >/dev/null 2>&1; then
+                open "$f"
+            fi
+            ;;
+        *)
+            if command -v open >/dev/null 2>&1; then
+                open "$f"
+            else
+                $EDITOR "$f"
+            fi
+            ;;
+    esac
+}}
+
+# ===========================
+# HOOKS
+# ===========================
+
+# Set window title
+cmd on-cd &{{
+    printf "\033]0;lf - %s\007" "$PWD"
+}}
+
+# Clean up on exit
+cmd on-quit &{{
+    printf "\033]0;\007"
 }}

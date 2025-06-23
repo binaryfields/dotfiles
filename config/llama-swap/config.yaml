@@ -33,15 +33,15 @@ models:
     "mistral3":
         cmd: |
             ${llama} ${context_l}
-            --model /Users/Shared/models/Mistral-Small-3.1-24B-Instruct-2503-UD-Q4_K_XL.gguf
-            --temp 0.15
+            --model /Users/Shared/models/Mistral-Small-3.2-24B-Instruct-2506-UD-Q5_K_XL.gguf
+            --temp 0.15 --top-p 1.0
         ttl: 900
 
     "mistral3-q6":
         cmd: |
             ${llama} ${context_l}
             --model /Users/Shared/models/Mistral-Small-3.1-24B-Instruct-2503-Q6_K.gguf
-            --temp 0.15
+            --temp 0.15 --top-p 1.0
         ttl: 900
 
     "qwen3":

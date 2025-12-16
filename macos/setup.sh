@@ -2,22 +2,21 @@
 
 BUILD_DIR="/tmp/build"
 PREFIX="/usr/local"
-MODEL_HOME="/Users/Shared/models"
 
 apps=(
     # internet
     firefox
     google-chrome
+    whatsapp
+    zoom
     # media
-    iina
     spotify
-    handbrake
+    iina
     # productivity
     obsidian
     # utils
     alacritty
     keepassxc
-    menumeters
     rectangle
     #verve
     # dev
@@ -26,7 +25,6 @@ apps=(
     tableplus
     # work
     android-studio
-    zoom
 )
 
 appstore=(
@@ -34,8 +32,6 @@ appstore=(
     571213070
     # Wireguard
     1441195209
-    # Xcode
-    497799835
 )
 
 assetts=(
@@ -63,6 +59,7 @@ utils=(
     eza
     fd
     gdu
+    procs
     ripgrep
     sd
     tealdeer
@@ -74,23 +71,16 @@ dev=(
     # lang
     go
     node@22
-    openjdk
     python
     rust
-    temurin@11
-    # build
-    cmake
-    coursier
-    make
-    metals
-    pnpm
-    pipx
-    sbt
-    uv
     # ai
     aider
-    huggingface-cli
-    llama.cpp
+    codex
+    # build
+    cmake
+    make
+    pnpm
+    uv
     # ops
     ansible
     fabric
@@ -100,43 +90,30 @@ dev=(
 	opentofu
     podman
     podman-compose
-    # servers
+    # services
     nats-server
-    postgresql@17
+    postgresql@18
+    redis
+    zerotier-one
     # tools
     git
     gitui
     git-delta
-    tig
     tokei
-    wrk
-    zerotier-one
+    # legacy
+    openjdk
+    temurin@11
+    coursier
+    metals
+    sbt
 )
 
-dev_bin=(
-    "llama-swap https://github.com/mostlygeek/llama-swap/releases/download/v130/llama-swap_130_darwin_arm64.tar.gz"
-)
+dev_bin=()
 
 dev_cs=(
     bloop
 )
 
-dev_pipx=(
-    docling
-)
-
-llm_base=(
-    "google/gemma-3-27b-it-qat-q4_0-gguf:q4_0"
-    "unsloth/Devstral-Small-2505-GGUF:UD-Q4_K_XL"
-    "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF:UD-Q5_K_XL"
-    "unsloth/Qwen3-32B-GGUF:UD-Q4_K_XL"
-)
-
-llm_testing=(
-    "unsloth/Magistral-Small-2506-GGUF:UD-Q4_K_XL"
-    "unsloth/Mistral-Small-3.1-24B-Instruct-2503-GGUF:Q6_K"
-    "unsloth/gemma-3-27b-it-GGUF:Q6_K"
-)
 
 install_binary() {
     local pkgname="$1"
@@ -193,15 +170,6 @@ disable_services() {
     defaults write com.apple.Siri 'UserHasDeclinedEnable' -bool true
     defaults write com.apple.systemuiserver 'NSStatusItem Visible Siri' 0
 
-    launchctl disable "user/$UID/com.apple.assistantd"
-    launchctl disable "gui/$UID/com.apple.assistantd"
-    launchctl disable "user/$UID/com.apple.Siri.agent"
-    launchctl disable "gui/$UID/com.apple.Siri.agent"
-    launchctl disable "user/$UID/com.apple.SiriTTSTrainingAgent"
-    launchctl disable "gui/$UID/com.apple.SiriTTSTrainingAgent"
-    #sudo launchctl disable 'system/com.apple.assistantd'
-    #sudo launchctl disable 'system/com.apple.Siri.agent'
-
     sudo mdutil -a -i off
     sudo mdutil -X /
 }
@@ -235,19 +203,7 @@ main() {
                 install_binary "$bin_name" "$bin_url"
             done
 			coursier install "${dev_cs[@]}" --only-prebuilt=true
-			pipx install "${dev_pipx[@]}"
 			;;
-		install-llm)
-            for model in "${llm_base[@]}"; do
-                IFS=':' read -r repo quant <<< "$model"
-                huggingface-cli download $repo --local-dir $MODEL_HOME --include "*$quant.gguf"
-            done
-
-            for model in "${llm_testing[@]}"; do
-                IFS=':' read -r repo quant <<< "$model"
-                huggingface-cli download $repo --local-dir $MODEL_HOME --include "*$quant.gguf"
-            done
-            ;;
 		install-utils)
 		    brew install "${utils[@]}"
 			;;

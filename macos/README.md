@@ -39,8 +39,21 @@ Based on https://inteltechniques.com/ventura.html
     - dom.ipc.processCount.webIsolated = 1
     - dom.ipc.processPrelaunch.enabled = false
     - extensions.pocket.enabled = false
-    - gfx.webrender.compositor.max_update_rects=16
+    - gfx.webrender.all = true
+    - gfx.webrender.compositor.max_update_rects = 50
+    - gfx.webrender.compositor.surface-pool-size = 50
+    - gfx.webrender.max-partial-present-rects = 25
+    - gfx.webrender.precache-shaders = true
+    - javascript.options.asmjs = false
+    - javascript.options.ion = false
+    - javascript.options.wasm = false
     - media.av1.enabled = false
+    - media.gpu-process-decoder = true
+    - network.dns.disablePrefetch = true
+    - network.http.speculative-parallel-limit = 0
+    - network.predictor.enabled = false
+    - network.prefetch-next = false
+    - sidebar.verticalTabs = true
 - Extensions
     - Firefox Multi-Account Container
     - uBlock Origin

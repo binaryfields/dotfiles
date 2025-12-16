@@ -13,8 +13,6 @@ alias brews='brew list --versions'
 alias jvm11='set -x JAVA_HOME (/usr/libexec/java_home -v 11)'
 alias jvm24='set -x JAVA_HOME (/usr/libexec/java_home -v 24)'
 
-alias llama='llama-swap --config ~/.config/llama-swap/config.yaml'
-
 alias podstart='podman machine start'
 alias podstop='podman machine stop'
 alias podup='podman start --all'

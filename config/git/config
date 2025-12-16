@@ -6,37 +6,6 @@
     editor = zed --wait
     pager = delta
 
-[init]
-    defaultBranch = main
-
-[commit]
-    verbose = true
-
-[pull]
-    rebase = true
-
-[push]
-    default = simple
-    autoSetupRemote = true
-
-[merge]
-    conflictstyle = diff3
-    ff = only
-
-[rebase]
-    autoStash = true
-    autosquash = true
-
-[fetch]
-    prune = true
-
-[color]
-    ui = auto
-
-[diff]
-    algorithm = histogram
-    renames = true
-
 [alias]
     # Common aliases for productivity
     s = status
@@ -56,21 +25,6 @@
     cl = clone
     # Undo last commit but keep changes
     undo = reset --soft HEAD~1
-
-[gpg]
-    program = gpg
-
-[credential]
-    # Use a credential helper to cache credentials
-    helper = cache --timeout=3600  # Cache for 1 hour
-    # For macOS: helper = osxkeychain
-    # For Windows: helper = wincred
-
-[http]
-    version = HTTP/2
-
-[protocol]
-    version = 2
 
 [delta]
     syntax-theme = Dracula

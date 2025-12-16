@@ -8,20 +8,23 @@
 // from the command palette or from `Zed` application menu.
 {
     // Theme
+    "toolbar": {
+        "quick_actions": false,
+        "breadcrumbs": false
+    },
+    "ui_font_weight": 500.0,
     "theme": "Base16 Zenburn Mod",
     "buffer_font_family": "Monaco", // Zed Plex Mono", // "CommitMono Nerd Font",
     "buffer_font_size": 13,
     "buffer_line_height": "standard",
-    "xui_font_family": "Monaco",
-    "ui_font_size": 14,
-    "agent_font_size": 14,
+    "ui_font_size": 15,
+    "agent_ui_font_size": 16.0,
 
     // UI
     "cursor_blink": false,
     "cursor_shape": "bar",
     "gutter": {
         "line_numbers": true,
-        "code_actions": false,
         "runnables": false,
         "breakpoints": false,
         "folds": false,
@@ -67,8 +70,7 @@
 
     // Telemetry
     "features": {
-        "edit_prediction_provider": "none",
-        "copilot": false
+        "edit_prediction_provider": "none"
     },
     "telemetry": {
         "diagnostics": true,
@@ -82,20 +84,18 @@
         "copy_on_select": true,
         "font_family": "CommitMono Nerd Font",
         "line_height": "standard",
-        "toolbar": {
-            "title": true
-        },
         "working_directory": "current_project_directory",
         "button": false
     },
 
     // AI
     "agent": {
+        "always_allow_tool_actions": true,
+        "default_profile": "write",
         "default_model": {
             "provider": "openai",
-            "model": "gemma3"
+            "model": "gpt-5"
         },
-        "version": "2",
         "inline_assistant_model": {
             "provider": "anthropic",
             "model": "claude-3-7-sonnet-latest"
@@ -103,7 +103,7 @@
         "default_width": 480
     },
     "language_models": {
-        "openai": {
+        "xopenai": {
             "version": "1",
             "api_url": "http://127.0.0.1:8080/v1",
             "api_key": "dummy",
@@ -134,6 +134,19 @@
                     "max_tokens": 32768
                 }
             ]
+        }
+    },
+    // Theme Overrides
+    "experimental.theme_overrides": {
+        "syntax": {
+            "error": {
+                "color": "#FF0000",
+                "font_weight": 900
+            },
+            "warning": {
+                "color": "#FFFF00",
+                "font_weight": 900
+            }
         }
     }
 }

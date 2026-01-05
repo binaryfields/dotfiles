@@ -53,6 +53,7 @@ utils=(
     rclone
     rsync
     xh
+    yt-dlp
     # sys
     bat
     btop
@@ -65,6 +66,9 @@ utils=(
     tealdeer
     zoxide
     zstd
+    # extra
+    mas
+    mole
 )
 
 dev=(

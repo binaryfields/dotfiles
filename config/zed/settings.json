@@ -7,146 +7,80 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-    // Theme
-    "toolbar": {
-        "quick_actions": false,
-        "breadcrumbs": false
-    },
-    "ui_font_weight": 500.0,
-    "theme": "Base16 Zenburn Mod",
-    "buffer_font_family": "Monaco", // Zed Plex Mono", // "CommitMono Nerd Font",
-    "buffer_font_size": 13,
-    "buffer_line_height": "standard",
-    "ui_font_size": 15,
-    "agent_ui_font_size": 16.0,
+  // Theme
+  "theme": "Base16 Zenburn Mod",
+  "buffer_font_family": "Monaco", // Zed Plex Mono", // "CommitMono Nerd Font",
+  "buffer_font_size": 16.0,
+  "buffer_line_height": "standard",
+  "markdown_preview_font_size": 20.0,
+  "ui_font_size": 16.0,
+  "ui_font_weight": 500.0,
+  "agent_ui_font_size": 16.0,
 
-    // UI
-    "cursor_blink": false,
-    "cursor_shape": "bar",
-    "gutter": {
-        "line_numbers": true,
-        "runnables": false,
-        "breakpoints": false,
-        "folds": false,
-        "min_line_number_digits": 0
-    },
-    "indent_guides": {
-        "coloring": "indent_aware"
-    },
-    "project_panel": {
-        "indent_size": 16,
-        "hide_root": true
-    },
-    "tab_bar": {
-        "show_nav_history_buttons": false,
-        "show_tab_bar_buttons": false
-    },
-    "tabs": {
-        "git_status": true,
-        "show_diagnostics": "errors"
-    },
-    "scrollbar": {
-        "show": "auto",
-        "cursors": true,
-        "git_diff": true,
-        "search_results": true,
-        "selected_symbol": true,
-        "diagnostics": "all",
-        "axes": {
-            "horizontal": true,
-            "vertical": true
-        }
-    },
+  // UI
+  "cursor_blink": false,
+  "cursor_shape": "bar",
+  "gutter": {
+    "line_numbers": true,
+    "runnables": false,
+    "breakpoints": false,
+    "folds": false,
+    "min_line_number_digits": 0,
+  },
+  "indent_guides": {
+    "coloring": "indent_aware",
+  },
+  "project_panel": {
+    "dock": "left",
+    "indent_size": 16,
+    "hide_root": true,
+  },
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+    "show_tab_bar_buttons": false,
+  },
+  "tabs": {
+    "git_status": true,
+    "show_diagnostics": "errors",
+  },
+  "toolbar": {
+    "quick_actions": false,
+    "breadcrumbs": false,
+  },
+  "scrollbar": {
+    "show": "auto",
+    "diagnostics": "all",
+  },
 
-    // Editing
-    "inlay_hints": {
-        "enabled": true
-    },
-    "preferred_line_length": 90,
-    "soft_wrap": "preferred_line_length",
-    "tab_size": 4,
-    "format_on_save": "on",
-    "remove_trailing_whitespace_on_save": true,
+  // Editing
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "preferred_line_length": 90,
+  "tab_size": 4,
+  "format_on_save": "off",
+  "remove_trailing_whitespace_on_save": true,
+  "edit_predictions": {
+    "provider": "none"
+  },
 
-    // Telemetry
-    "features": {
-        "edit_prediction_provider": "none"
-    },
-    "telemetry": {
-        "diagnostics": true,
-        "metrics": false
-    },
+  // Telemetry
+  "telemetry": {
+    "diagnostics": true,
+    "metrics": false,
+  },
 
-    // Terminal
-    "terminal": {
-        "alternate_scroll": "off",
-        "blinking": "terminal_controlled",
-        "copy_on_select": true,
-        "font_family": "CommitMono Nerd Font",
-        "line_height": "standard",
-        "working_directory": "current_project_directory",
-        "button": false
+  // Theme Overrides
+  "experimental.theme_overrides": {
+    "syntax": {
+      "error": {
+        "color": "#FF0000",
+        "font_weight": 900,
+      },
+      "warning": {
+        "color": "#FFFF00",
+        "font_weight": 900,
+      },
     },
-
-    // AI
-    "agent": {
-        "always_allow_tool_actions": true,
-        "default_profile": "write",
-        "default_model": {
-            "provider": "openai",
-            "model": "gpt-5"
-        },
-        "inline_assistant_model": {
-            "provider": "anthropic",
-            "model": "claude-3-7-sonnet-latest"
-        },
-        "default_width": 480
-    },
-    "language_models": {
-        "xopenai": {
-            "version": "1",
-            "api_url": "http://127.0.0.1:8080/v1",
-            "api_key": "dummy",
-            "available_models": [
-                {
-                    "name": "gemma3",
-                    "display_name": "gemma3",
-                    "max_tokens": 32768
-                },
-                {
-                    "name": "gemma3-q6",
-                    "display_name": "gemma3-q6",
-                    "max_tokens": 32768
-                },
-                {
-                    "name": "mistral3",
-                    "display_name": "mistral3",
-                    "max_tokens": 32768
-                },
-                {
-                    "name": "mistral3-q6",
-                    "display_name": "mistral3-q6",
-                    "max_tokens": 32768
-                },
-                {
-                    "name": "qwen3",
-                    "display_name": "qwen3",
-                    "max_tokens": 32768
-                }
-            ]
-        }
-    },
-    // Theme Overrides
-    "experimental.theme_overrides": {
-        "syntax": {
-            "error": {
-                "color": "#FF0000",
-                "font_weight": 900
-            },
-            "warning": {
-                "color": "#FFFF00",
-                "font_weight": 900
-            }
-        }
-    }
+  },
 }

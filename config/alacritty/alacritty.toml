@@ -12,10 +12,10 @@ unfocused_hollow = true
 normal = { family = "FiraCode Nerd Font", style = "Regular" }
 bold = { family = "FiraCode Nerd Font", style = "Bold" }
 italic = { family = "FiraCode Nerd Font", style = "Italic" }
-size = 14
+size = 16
 
 [scrolling]
-history = 10000
+history = 1000
 multiplier = 3
 
 [window]

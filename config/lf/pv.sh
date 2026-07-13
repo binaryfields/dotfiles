@@ -1,6 +1,7 @@
 #!/bin/sh
 
 case "$1" in
+    *.md) glow "$1";;
     *.pdf) pdftotext "$1" -;;
     *.tar*) tar tf "$1";;
     *.zip) unzip -l "$1";;

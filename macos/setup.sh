@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-BUILD_DIR="/tmp/build"
-PREFIX="/usr/local"
-
 apps=(
     # internet
     firefox
@@ -10,21 +7,21 @@ apps=(
     whatsapp
     zoom
     # media
-    spotify
     iina
     # productivity
+    claude
     obsidian
     # utils
     alacritty
     keepassxc
+    alt-tab
     rectangle
+    swiftbar
     #verve
     # dev
     zed
     # devops
     tableplus
-    # work
-    android-studio
 )
 
 appstore=(
@@ -35,13 +32,11 @@ appstore=(
 )
 
 assetts=(
-    font-fira-code
     font-fira-code-nerd-font
-    font-commit-mono-nerd-font
 )
 
 utils=(
-	# essential
+    # essential
     fish
     just
     micro
@@ -49,17 +44,17 @@ utils=(
     lnav
     television
     # net
-    croc
     rclone
     rsync
+    wget
     xh
-    yt-dlp
     # sys
     bat
     btop
     eza
     fd
     gdu
+    glow
     procs
     ripgrep
     sd
@@ -78,8 +73,7 @@ dev=(
     python
     rust
     # ai
-    aider
-    codex
+    claude-code
     # build
     cmake
     make
@@ -87,16 +81,20 @@ dev=(
     uv
     # ops
     ansible
-    fabric
+    awscli
+    eksctl
     helm
-	k9s
-	kubernetes-cli
-	opentofu
+    k9s
+    kubernetes-cli
+    oci-cli
+    opentofu
     podman
-    podman-compose
+    sops
     # services
+    cloudflared
     nats-server
     postgresql@18
+    pgvector
     redis
     zerotier-one
     # tools
@@ -104,49 +102,8 @@ dev=(
     gitui
     git-delta
     tokei
-    # legacy
-    openjdk
-    temurin@11
-    coursier
-    metals
-    sbt
+    tig
 )
-
-dev_bin=()
-
-dev_cs=(
-    bloop
-)
-
-
-install_binary() {
-    local pkgname="$1"
-    local pkgver=1
-    local pkgurl="$2"
-    local pkgdir="$PREFIX"
-
-    cd "$BUILD_DIR"
-    rm -rf "$pkgname-$pkgver" || true
-    mkdir -p "$pkgname-$pkgver"
-
-    wget -O "$pkgname.tar.gz" "$pkgurl"
-    tar xavf "$pkgname.tar.gz" -C "$pkgname-$pkgver"
-
-    pushd .
-    cd "$pkgname-$pkgver"
-    install -Dm 755 "$pkgname" -t "$pkgdir/bin"
-    popd
-
-    rm -rf "$pkgname-$pkgver" || true
-}
-
-config_reset() {
-    defaults write com.apple.dock persistent-apps -array
-}
-
-config_system() {
-    sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
-}
 
 config_user() {
     # Appearance
@@ -165,58 +122,48 @@ config_user() {
     defaults write com.apple.Dock show-process-indicators -bool true
 }
 
-disable_services() {
-    defaults write com.apple.assistant.backedup 'Use device speaker for TTS' -int 3
-    defaults write com.apple.assistant.support 'Assistant Enabled' -bool false
-    defaults write com.apple.assistant.support 'Siri Data Sharing Opt-In Status' -int 2
-    defaults write com.apple.SetupAssistant 'DidSeeSiriSetup' -bool True
-    defaults write com.apple.Siri 'StatusMenuVisible' -bool false
-    defaults write com.apple.Siri 'UserHasDeclinedEnable' -bool true
-    defaults write com.apple.systemuiserver 'NSStatusItem Visible Siri' 0
+config_reset() {
+    defaults write com.apple.dock persistent-apps -array
+}
 
+disable_services() {
     sudo mdutil -a -i off
     sudo mdutil -X /
 }
 
 show_status() {
-	echo "* Spotlight"
-	mdutil -s /
-	echo "* FileValut"
-	fdesetup status
-	echo "* SIP"
-	csrutil status
-	echo "* Assessment"
-	spctl --status
+    echo "* Spotlight"
+    mdutil -s /
+    echo "* FileValut"
+    fdesetup status
+    echo "* SIP"
+    csrutil status
+    echo "* Assessment"
+    spctl --status
 }
 
 main() {
 	case "$1" in
-		install-apps)
-		    brew install --cask "${apps[@]}"
-			;;
+        install-apps)
+            brew install --cask "${apps[@]}"
+            ;;
         install-appstore)
             mas install "${appstore[@]}"
             ;;
         install-assetts)
             brew install "${assetts[@]}"
             ;;
-		install-dev)
-		    brew install "${dev[@]}"
-		    for item in "${dev_bin[@]}"; do
-                IFS=' ' read -r bin_name bin_url <<< "$item"
-                install_binary "$bin_name" "$bin_url"
-            done
-			coursier install "${dev_cs[@]}" --only-prebuilt=true
-			;;
-		install-utils)
-		    brew install "${utils[@]}"
-			;;
-		config-reset) config_reset ;;
-        config-system) config_system ;;
-		config-user) config_user ;;
+        install-dev)
+            brew install "${dev[@]}"
+            ;;
+        install-utils)
+            brew install "${utils[@]}"
+            ;;
+        config-reset) config_reset ;;
+        config-user) config_user ;;
         disable-services) disable_services ;;
         status) show_status ;;
-		*) echo "Invalid action ${1}!"; exit 1 ;;
+        *) echo "Invalid action ${1}!"; exit 1 ;;
 	esac
 }
 

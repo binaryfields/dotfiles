@@ -61,7 +61,8 @@ map x cut
 map c copy
 map v paste
 map V paste-rsync
-map <delete> delete
+map <delete> trash
+map D delete
 
 # New file/directory
 map md mkdir
@@ -123,7 +124,6 @@ map <c-b> mark-remove
 map gh cd ~
 map gd cd ~/Downloads
 map gD cd ~/Documents
-map gw cd ~/dev/consulting
 map gs cd /Volumes/share
 
 # ===========================
@@ -145,8 +145,6 @@ map zd set dircounts!
 map sn :set sortby natural; set info
 map ss :set sortby size; set info size
 map st :set sortby time; set info time
-map sa :set sortby atime; set info atime
-map sc :set sortby ctime; set info ctime
 map se :set sortby ext; set info
 map sz :set sortby size; set reverse!; set info size
 map sr set reverse!
@@ -163,10 +161,11 @@ map zb set drawbox!
 
 # Shell and editor
 map w $$SHELL
-map e $$EDITOR "$f"
+map e $zed "$f"
 map E $sudo $EDITOR "$f"
 map i $less "$f"
 map I $LESSOPEN='| ~/.config/lf/pv.sh %s' less -R "$f"
+map p $glow "$f"
 
 # System operations
 map Y $printf '%s' "$fx" | pbcopy
@@ -189,7 +188,7 @@ map <f-4> $$EDITOR "$f"
 map <f-5> copy
 map <f-6> cut
 map <f-7> mkdir
-map <f-8> delete
+map <f-8> trash
 map <f-9> compress
 map <f-10> quit
 
@@ -263,15 +262,27 @@ cmd compress ${{
     fi
 }}
 
-# Trash (if available)
+# Trash — move selection to Trash (macOS `trash`, fallback to `gio`)
 cmd trash ${{
-    if command -v trash >/dev/null 2>&1; then
-        trash $fx
-    elif command -v gio >/dev/null 2>&1; then
-        gio trash $fx
-    else
-        echo "No trash command available"
-    fi
+    set -f
+    count=$(printf '%s\n' "$fx" | wc -l | tr -d ' ')
+    printf "Move %s file(s) to trash? [y/N] " "$count"
+    read -r ans
+    case "$ans" in
+        [yY]*)
+            if command -v trash >/dev/null 2>&1; then
+                printf '%s\n' "$fx" | while IFS= read -r file; do
+                    [ -n "$file" ] && trash "$file"
+                done
+            elif command -v gio >/dev/null 2>&1; then
+                printf '%s\n' "$fx" | while IFS= read -r file; do
+                    [ -n "$file" ] && gio trash "$file"
+                done
+            else
+                echo "No trash command available"; read -r _
+            fi
+            ;;
+    esac
 }}
 
 # Paste with rsync (for progress)

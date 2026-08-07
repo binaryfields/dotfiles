@@ -1,87 +1,43 @@
 # macOS Setup
 
-## System Configuration
+## Appearance
 
-[Based on https://inteltechniques.com/ventura.html](https://inteltechniques.com/blog/2026/01/05/macos-26-settings/)
+- Appearance > Appearance > Dark
 
-Settings > Wi-Fi > Ask to join networks > Off
-Settings > Wi-Fi > Ask to join hotspots > Never
-Settings > Bluetooth > Disabled (if not used)
-Settings > Network > Firewall > Enabled
-Settings > Network > Firewall > Options > Automatically allow built-in... > Disabled
-Settings > Network > Firewall > Options > Automatically allow downloaded... > Disabled
-Settings > Network > Firewall > Options > Stealth mode > Enabled
-Settings > Battery > Options > Wake for network access > Never
-Settings > General > Automatic Updates > i > Disable All
-Settings > General > AirDrop & Handoff > Allow Handoff > Disabled
-Settings > General > AirDrop & Handoff > AirDrop > No One
-Settings > General > AirDrop & Handoff > AirPlay Receiver > Disabled
-Settings > General > AirDrop & Handoff > Allow Airplay for > Current User
-Settings > General > AirDrop & Handoff > Require password > Enabled
-Settings > General > AutoFill & Passwords > All Your Password... > (Close "x")
-Settings > General > AutoFill & Passwords > AutoFill Passwords and Passkeys > Disabled
-Settings > General > Date & Time > Source > Set > pool.ntp.org > Set
-Settings > General > Date & Time > Set time zone automatically... > Disabled
-Settings > General > Date & Time > Time zone > Desired location
-Settings > General > Date & Time > Closest City > Desired location
-Settings > General > Login Items & Extensions > Remove or disable those desired
-Settings > General > Sharing > Disable all
-Settings > Accessibility > Siri > Type to Siri > Disabled
-Settings > Accessibility > Siri > Listen for atypical speech > Disabled
-Settings > Apple Intelligence & Siri > Apple Intelligence > Disabled
-Settings > Apple Intelligence & Siri > Siri > Disabled
-Settings > Apple Intelligence & Siri > Siri History > Delete Siri & Dictation History > Delete
-Settings > Apple Intelligence & Siri > Siri Suggestions & Privacy > Disable all
-Settings > Desktop & Dock > Show suggested and recent apps in Dock > Disabled
-Settings > Desktop & Dock > Show recent apps in Stage Manager > Disabled
-Settings > Desktop & Dock > Automatically rearrange Spaces... > Disabled
-Settings > Spotlight > Show Related Content > Disabled
-Settings > Spotlight > Spotlight Search History > Delete Search History
-Settings > Spotlight > Help Apple Improve Search > Disabled
-Settings > Spotlight > Results from Apps > Disable all
-Settings > Spotlight > Results from System > Disable all
-Settings > Spotlight > Results from Clipboard > Disabled
-Settings > Notifications > Show previews > Never
-Settings > Notifications > Allow notifications when the device is sleeping > Disabled
-Settings > Notifications > Allow notifications when the screen is locked > Disabled
-Settings > Notifications > Allow notifications when mirroring or sharing the display > Disabled
-Settings > Notifications > Application Notifications > Disable undesired
-Settings > Sound > Alert volume > Minimum
-Settings > Sound > Play sound on startup > Disabled
-Settings > Sound > Play user interface sound effects > Disabled
-Settings > Sound > Play feedback when volume is changed > Disabled
-Settings > Focus > Share across devices > Disabled
-Settings > Focus > Focus status > Off
-Settings > Lock Screen > Turn display off on battery when inactive > For 1 hour
-Settings > Lock Screen > Turn display off on power adapter when inactive > For 1 hour
-Settings > Lock Screen > Require password after... > Immediately
-Settings > Lock Screen > Show password hints > Disabled
-Settings > Lock Screen > Show message when locked > Disabled
-Settings > Privacy & Security > Location Services > Off
-Settings > Privacy & Security > Confirm app access
-Settings > Privacy & Security > Sensitive Content Warning > Off
-Settings > Privacy & Security > Analytics & Improvements > Disable all
-Settings > Privacy & Security > Apple Advertising > Personalized Ads > Disabled
-Settings > Privacy & Security > Apple Intelligence Report > Off
-Settings > Privacy & Security > FileVault > Enabled
-Settings > Privacy & Security > Accessories > Always ask
-Settings > Privacy & Security > Background Security Improvements > Enabled (if desired)
-Settings > Touch ID & Password > Use Touch ID for Apple Pay > Disabled
-Settings > Touch ID & Password > Use Touch ID for purchases... > Disabled
-Settings > Touch ID & Password > Use Touch ID for autofilling passwords > Disabled
-Settings > Internet Accounts > None
-Settings > Game Center > Disabled
-Settings > iCloud > None
-Settings > Wallet & Apple Pay > Autofill Cards > 0
-Settings > Wallet & Apple Pay > Shipping Address > None
-Settings > Wallet & Apple Pay > Email > None
-Settings > Wallet & Apple Pay > Phone > None
-Settings > Wallet & Apple Pay > Add Orders to Wallet > Disabled
+Subpixel font rendering on non-Apple LCDs:
+    - defaults write NSGlobalDomain AppleFontSmoothing -int 1
+    - Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+
+## General
+
+- General > Language & Region > Live Text > Off
+
+## Display
+
+- Accessibility > Display > Text size > 16pt
+- Firefox > Accessibility > Default zoom > 130%
+- Obsidian > Settings> Appearance > Font size > 20
+- Zed > Settings> Appearance > Font size > 16.0
+- Alacritty > Config > font > size > 16
+
+## Dock
+
+- Desktop & Dock > Automatically hide and show the Dock > On
+- Desktop & Dock > Show indicators for open applications > On
+
+Faster hide/show animation:
+    - defaults write com.apple.Dock autohide-delay -float 0.1
+    - defaults write com.apple.Dock autohide-time-modifier -float 0.5
+
+## Input
+
+- Keyboard > Press 🌐 key to > Do Nothing
+- Trackpad > Scroll & Zoom > Natural scrolling > Off
+- Trackpad > Point & Click > Tracking speed > ~midpoint
 
 ## Keyboard Shortcuts
 
-- Spotlight
-    - Show Spotlight search = Ctrl-Opt-Space
+- Spotlight > uncheck "Show Spotlight search."
 - Mission Control
     - Move left a space = Ctrl-Cmd-Down
     - Move right a space = Ctrl-Cmd-Up
@@ -89,6 +45,84 @@ Settings > Wallet & Apple Pay > Add Orders to Wallet > Disabled
 - Modifier Keys
     - Control key = Globe
     - Globe key = Control
+
+## Privacy
+
+Based on https://inteltechniques.com/blog/2026/01/05/macos-26-settings
+
+- Wi-Fi > Ask to join networks > Off
+- Wi-Fi > Ask to join hotspots > Never
+- Bluetooth > Disabled (if not used)
+- Network > Firewall > Enabled
+- Network > Firewall > Options > Automatically allow built-in... > Disabled
+- Network > Firewall > Options > Automatically allow downloaded... > Disabled
+- Network > Firewall > Options > Stealth mode > Enabled
+- Battery > Options > Wake for network access > Never
+- General > Automatic Updates > i > Disable All
+- General > AirDrop & Handoff > Allow Handoff > Disabled
+- General > AirDrop & Handoff > AirDrop > No One
+- General > AirDrop & Handoff > AirPlay Receiver > Disabled
+- General > AirDrop & Handoff > Allow Airplay for > Current User
+- General > AirDrop & Handoff > Require password > Enabled
+- General > AutoFill & Passwords > All Your Password... > (Close "x")
+- General > AutoFill & Passwords > AutoFill Passwords and Passkeys > Disabled
+- General > Date & Time > Source > Set > pool.ntp.org > Set
+- General > Date & Time > Set time zone automatically... > Disabled
+- General > Date & Time > Time zone > Desired location
+- General > Date & Time > Closest City > Desired location
+- General > Login Items & Extensions > Remove or disable those desired
+- General > Sharing > Disable all
+- Accessibility > Siri > Type to Siri > Disabled
+- Accessibility > Siri > Listen for atypical speech > Disabled
+- Apple Intelligence & Siri > Apple Intelligence > Disabled
+- Apple Intelligence & Siri > Siri > Disabled
+- Apple Intelligence & Siri > Siri History > Delete Siri & Dictation History > Delete
+- Apple Intelligence & Siri > Siri Suggestions & Privacy > Disable all
+- Desktop & Dock > Show suggested and recent apps in Dock > Disabled
+- Desktop & Dock > Show recent apps in Stage Manager > Disabled
+- Desktop & Dock > Automatically rearrange Spaces... > Disabled
+- Spotlight > Show Related Content > Disabled
+- Spotlight > Spotlight Search History > Delete Search History
+- Spotlight > Help Apple Improve Search > Disabled
+- Spotlight > Results from Apps > Disable all
+- Spotlight > Results from System > Disable all
+- Spotlight > Results from Clipboard > Disabled
+- Notifications > Show previews > Never
+- Notifications > Allow notifications when the device is sleeping > Disabled
+- Notifications > Allow notifications when the screen is locked > Disabled
+- Notifications > Allow notifications when mirroring or sharing the display > Disabled
+- Notifications > Application Notifications > Disable undesired
+- Sound > Alert volume > Minimum
+- Sound > Play sound on startup > Disabled
+- Sound > Play user interface sound effects > Disabled
+- Sound > Play feedback when volume is changed > Disabled
+- Focus > Share across devices > Disabled
+- Focus > Focus status > Off
+- Lock Screen > Turn display off on battery when inactive > For 1 hour
+- Lock Screen > Turn display off on power adapter when inactive > For 1 hour
+- Lock Screen > Require password after... > Immediately
+- Lock Screen > Show password hints > Disabled
+- Lock Screen > Show message when locked > Disabled
+- Privacy & Security > Location Services > Off
+- Privacy & Security > Confirm app access
+- Privacy & Security > Sensitive Content Warning > Off
+- Privacy & Security > Analytics & Improvements > Disable all
+- Privacy & Security > Apple Advertising > Personalized Ads > Disabled
+- Privacy & Security > Apple Intelligence Report > Off
+- Privacy & Security > FileVault > Enabled
+- Privacy & Security > Accessories > Always ask
+- Privacy & Security > Background Security Improvements > Enabled (if desired)
+- Touch ID & Password > Use Touch ID for Apple Pay > Disabled
+- Touch ID & Password > Use Touch ID for purchases... > Disabled
+- Touch ID & Password > Use Touch ID for autofilling passwords > Disabled
+- Internet Accounts > None
+- Game Center > Disabled
+- iCloud > None
+- Wallet & Apple Pay > Autofill Cards > 0
+- Wallet & Apple Pay > Shipping Address > None
+- Wallet & Apple Pay > Email > None
+- Wallet & Apple Pay > Phone > None
+- Wallet & Apple Pay > Add Orders to Wallet > Disabled
 
 ## Firefox
 

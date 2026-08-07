@@ -14,10 +14,6 @@ apps=(
     # utils
     alacritty
     keepassxc
-    alt-tab
-    rectangle
-    swiftbar
-    #verve
     # dev
     zed
     # devops
@@ -38,16 +34,9 @@ assetts=(
 utils=(
     # essential
     fish
-    just
     micro
     lf
-    lnav
-    television
-    # net
-    rclone
-    rsync
-    wget
-    xh
+    tv
     # sys
     bat
     btop
@@ -55,13 +44,18 @@ utils=(
     fd
     gdu
     glow
+    just
     procs
+    rclone
     ripgrep
+    rsync
     sd
     tealdeer
+    wget
+    xh
     zoxide
     zstd
-    # extra
+    # macos
     mas
     mole
 )
@@ -101,35 +95,11 @@ dev=(
     git
     gitui
     git-delta
+    golangci-lint
+    lnav
     tokei
     tig
 )
-
-config_user() {
-    # Appearance
-    defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
-    # Enable subpixel font rendering on non-Apple LCDs
-    # Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
-    defaults write NSGlobalDomain AppleFontSmoothing -int 1
-    # Input
-    defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-    defaults write NSGlobalDomain com.apple.trackpad.scaling -float 1.5
-    defaults write com.apple.HIToolbox AppleFnUsageType -int 0
-    # Dock
-    defaults write com.apple.Dock autohide -bool true
-    defaults write com.apple.Dock autohide-delay -float 0.1
-    defaults write com.apple.Dock autohide-time-modifier -float 0.5
-    defaults write com.apple.Dock show-process-indicators -bool true
-}
-
-config_reset() {
-    defaults write com.apple.dock persistent-apps -array
-}
-
-disable_services() {
-    sudo mdutil -a -i off
-    sudo mdutil -X /
-}
 
 show_status() {
     echo "* Spotlight"
@@ -159,10 +129,13 @@ main() {
         install-utils)
             brew install "${utils[@]}"
             ;;
-        config-reset) config_reset ;;
-        config-user) config_user ;;
-        disable-services) disable_services ;;
-        status) show_status ;;
+        dock-reset)
+            defaults write com.apple.dock persistent-apps -array
+            ;;
+        indexing-disable-)
+            sudo mdutil -a -i off
+            sudo mdutil -X /
+            ;;        status) show_status ;;
         *) echo "Invalid action ${1}!"; exit 1 ;;
 	esac
 }

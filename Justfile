@@ -4,5 +4,11 @@ linux-dot:
     cp -r fedora/xdg/applications ~/.local/share/
     cp fedora/config/.profile ~/.profile
 
-macos-dot:
+mac-dot:
     cp -r config/* ~/.config/
+
+mac-pkgs group="base":
+    brew bundle --file macos/Brewfile.{{group}}
+
+mac-check:
+    for f in macos/Brewfile.*; do echo "* $f"; brew bundle check --verbose --file "$f" || true; done

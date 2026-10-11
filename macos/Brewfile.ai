@@ -1,0 +1,8 @@
+# agents
+cask "claude-code@latest"
+# runtime
+brew "ollama"
+brew "onnxruntime"
+# speech
+brew "espeak-ng"
+brew "whisper.cpp"

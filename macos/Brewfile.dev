@@ -1,0 +1,18 @@
+# vcs
+brew "git"
+brew "git-delta"
+brew "gitui"
+brew "tig"
+# lang
+brew "go"
+brew "node@22", link: true
+brew "python"
+brew "rust"
+# build
+brew "cmake"
+brew "just"
+brew "pnpm"
+brew "uv"
+# analysis
+brew "golangci-lint"
+brew "tokei"

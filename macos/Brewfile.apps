@@ -1,0 +1,12 @@
+# internet
+cask "google-chrome"
+cask "whatsapp"
+cask "zoom"
+# productivity
+cask "claude"
+cask "obsidian"
+# utils
+cask "ghostty"
+cask "zed"
+# assets
+cask "font-fira-code-nerd-font"

@@ -1,0 +1,18 @@
+theme = everforest_dark
+
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+font-family = ""
+font-family = "FiraCode Nerd Font Mono"
+font-size = 16
+
+window-padding-x = 10
+window-padding-y = 10
+background-opacity = 0.9
+# match macOS font smoothing that Alacritty applies by default
+font-thicken = true
+
+# Alacritty floors the 9.6px FiraCode advance to a 9px cell; Ghostty rounds up to 10px
+adjust-cell-width = -1

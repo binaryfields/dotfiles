@@ -1,12 +1,9 @@
 # macOS Setup
 
-## Appearance
+## Packages
 
-- Appearance > Appearance > Dark
-
-Subpixel font rendering on non-Apple LCDs:
-    - defaults write NSGlobalDomain AppleFontSmoothing -int 1
-    - Reference: https://github.com/kevinSuttle/macOS-Defaults/issues/17#issuecomment-266633501
+- `just macos-pkgs base|apps|dev|ops|ai` installs `Brewfile.<group>`
+- `just macos-check` reports what is missing per Brewfile
 
 ## General
 
@@ -24,10 +21,6 @@ Subpixel font rendering on non-Apple LCDs:
 
 - Desktop & Dock > Automatically hide and show the Dock > On
 - Desktop & Dock > Show indicators for open applications > On
-
-Faster hide/show animation:
-    - defaults write com.apple.Dock autohide-delay -float 0.1
-    - defaults write com.apple.Dock autohide-time-modifier -float 0.5
 
 ## Input
 
